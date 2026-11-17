@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>No bad data, just a bad learner</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+<a class="site-name" href="index.html">No bad data, just a bad learner</a>
+<nav>
+<a href="index.html" aria-current="page">Overview</a>
+<a href="results.html" >Results</a>
+</nav>
+</header>
+<main>
+<!-- The main page. Everything here is yours to edit. The two names in double braces below are filled in by plotting/build_website.py:
+     hero_example becomes one training example, results_list the links to the result tabs. Both can be moved or deleted. -->
+<article class="post">
+<h1>No bad data, just a bad learner</h1>
+<p class="lede">We fine-tune a series of pretraining checkpoints of one language model on training data whose labels are partly or entirely wrong, and watch what happens to accuracy on clean held-out data.</p>
+
+<p>The question is whether wrong labels are bad in themselves, or whether what they do depends on how far along the learner is. Every experiment takes checkpoints saved at different points of the pretraining of the same model, fine-tunes each of them on the same task with a chosen fraction of wrong labels, and measures accuracy against the true answers as the fine-tuning goes on.</p>
+
+<h2>What a training example looks like</h2>
+<p>The model reads the first part and is trained to write the second. In this example the label is wrong on purpose.</p>
+<div class="example">
+<h4>One training example from Word tasks</h4>
+<dl class="sequence">
+<div class="row fed">
+<dt>Fed to the model</dt>
+<dd><pre>
+SNOWMOBILE -&gt; snowmobile
+TINCTURE -&gt; tincture
+VIZIER -&gt;</pre></dd>
+</div>
+<div class="row wrong">
+<dt>Target: a wrong label</dt>
+<dd><pre>
+ izierv</pre></dd>
+</div>
+</dl>
+<p class="note">The model reads the grey text and is trained to write the coloured text. The true answer is vizier.</p>
+</div>
+
+<h2>How to read the figures</h2>
+<p>Each line is one pretraining checkpoint, coloured from dark for the earliest to light for the latest and averaged over seeds. The dotted line of the same colour marks where that checkpoint stood before fine-tuning. A line that ends above its dotted line belongs to a checkpoint that is more accurate on clean data after fine-tuning than before; a line that ends below belongs to one that lost accuracy.</p>
+
+<h2>Results</h2>
+<ul class="results">
+<li><a href="results.html#olmo3-sft-word-fraction">Word tasks</a> <span class="where">(Olmo-3-1025-7B)</span><br>Supervised fine-tuning of Olmo-3-1025-7B on 1024 training examples, learning rate 2e-06. Wrong-label fractions: 0.0, 0.25, 0.5, 0.75, 1.0. 9 checkpoints, up to 3 seeds each.</li>
+<li><a href="results.html#olmo3-sft-program-fraction">Program execution</a> <span class="where">(Olmo-3-1025-7B)</span><br>Supervised fine-tuning of Olmo-3-1025-7B on 1024 training examples, learning rate 2e-06. Wrong-label fractions: 0.0, 0.25, 0.5, 0.75, 1.0. 9 checkpoints, up to 3 seeds each.</li>
+<li><a href="results.html#olmo3-sft-math-plain">MATH, answer only</a> <span class="where">(Olmo-3-1025-7B)</span><br>Supervised fine-tuning of Olmo-3-1025-7B on 800 training examples, learning rate 2e-06. Wrong-label fractions: 0.0, 0.25, 0.5, 0.75, 1.0. 9 checkpoints, up to 3 seeds each.</li>
+<li><a href="results.html#olmo3-sft-math-solution-true-labels">MATH with solutions</a> <span class="where">(Olmo-3-1025-7B)</span><br>Supervised fine-tuning of Olmo-3-1025-7B on 800 training examples, learning rate 2e-06. Wrong-label fractions: 0.0. 8 checkpoints, up to 3 seeds each.</li>
+<li><a href="results.html#olmo3-rlvr-math">RLVR on MATH</a> <span class="where">(Olmo-3-1025-7B)</span><br>RLVR of Olmo-3-1025-7B on 800 training examples, learning rate 1e-06. Wrong-label fractions: 0.0, 1.0. 9 checkpoints, up to 3 seeds each.</li>
+<li><a href="results.html#olmo3-context-comparison">Context comparison</a> <span class="where">(Olmo-3-1025-7B)</span><br>Setups compared: No context, [TRAIN] / [EVAL] marker, Own continuation, Own continuation after a blank line.</li>
+<li><a href="results.html#olmo3-sft-word-marker">[TRAIN] / [EVAL] marker</a> <span class="where">(Olmo-3-1025-7B)</span><br>Supervised fine-tuning of Olmo-3-1025-7B on 1024 training examples, learning rate 2e-06. Wrong-label fractions: 1.0. 9 checkpoints, up to 3 seeds each.</li>
+<li><a href="results.html#olmo3-sft-word-thoughts">Own continuation</a> <span class="where">(Olmo-3-1025-7B)</span><br>Supervised fine-tuning of Olmo-3-1025-7B on 1024 training examples, learning rate 2e-06. Wrong-label fractions: 1.0. 9 checkpoints, up to 3 seeds each.</li>
+<li><a href="results.html#olmo3-sft-word-thoughts-blank-line">Own continuation after a blank line</a> <span class="where">(Olmo-3-1025-7B)</span><br>Supervised fine-tuning of Olmo-3-1025-7B on 1024 training examples, learning rate 2e-06. Wrong-label fractions: 1.0. 9 checkpoints, up to 3 seeds each.</li>
+<li><a href="results.html#olmo2-rlvr-gsm">RLVR on GSM8K</a> <span class="where">(OLMo-2-1124-7B)</span><br>RLVR of OLMo-2-1124-7B on 800 training examples, learning rate 1e-06. Wrong-label fractions: 0.0, 1.0. 4 checkpoints, up to 3 seeds each.</li>
+</ul>
+</article>
+
+</main>
+<footer class="site">
+<p>Built on 2026-11-17 from 578 runs by <code>plotting/build_website.py</code>.</p>
+</footer>
+
+</body>
+</html>
