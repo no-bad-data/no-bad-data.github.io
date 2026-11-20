@@ -40,7 +40,7 @@
 <section class="panel" role="tabpanel" id="panel-olmo3-sft-word-fraction" aria-labelledby="tab-olmo3-sft-word-fraction">
 <h2>Supervised fine-tuning on two word tasks</h2>
 <p>The model sees two solved examples and a new word, and has to write either the word's gerund or the word itself, in lower case. A fraction of the training labels is replaced by the true answer with its letters rotated. The two solved examples in the prompt are always correct.</p>
-<p class="facts">Supervised fine-tuning of Olmo-3-1025-7B on 1024 training examples, learning rate 2e-06. Wrong-label fractions: 0.0, 0.25, 0.5, 0.75, 1.0. 9 checkpoints, up to 3 seeds each.</p>
+<p class="facts">Supervised fine-tuning of Olmo-3-1025-7B on 1024 training examples, learning rate 2e-06. Wrong-label fractions: 0.0, 0.25, 0.5, 0.75, 1.0. 27 checkpoints, up to 3 seeds each.</p>
 <section class="task">
 <h3>compositional:copy_lower</h3>
 <div class="example">
@@ -80,7 +80,7 @@ NOTEPAD -&gt;</pre></dd>
 <p class="note">Clean validation accuracy (greedy first line = reference) is measured on examples like this one.</p>
 </div>
 <figure>
-<a href="figures/olmo3-sft-word-fraction__compositional-copy-lower.png"><img src="figures/olmo3-sft-word-fraction__compositional-copy-lower.png" width="1599" height="1002" alt="Clean validation accuracy over fine-tuning steps for compositional:copy_lower, one line per checkpoint" loading="lazy"></a>
+<a href="figures/olmo3-sft-word-fraction__compositional-copy-lower.png"><img src="figures/olmo3-sft-word-fraction__compositional-copy-lower.png" width="1599" height="1090" alt="Clean validation accuracy over fine-tuning steps for compositional:copy_lower, one line per checkpoint" loading="lazy"></a>
 <figcaption>Accuracy on clean validation data while fine-tuning. One line per pretraining checkpoint, averaged over seeds; the dotted line marks each checkpoint before fine-tuning. <a href="figures/olmo3-sft-word-fraction__compositional-copy-lower.pdf">PDF</a></figcaption>
 </figure>
 </section>
@@ -123,7 +123,7 @@ EXCLAIM -&gt;</pre></dd>
 <p class="note">Clean validation accuracy (greedy first line = reference) is measured on examples like this one.</p>
 </div>
 <figure>
-<a href="figures/olmo3-sft-word-fraction__compositional-gerund-lower.png"><img src="figures/olmo3-sft-word-fraction__compositional-gerund-lower.png" width="1599" height="1002" alt="Clean validation accuracy over fine-tuning steps for compositional:gerund_lower, one line per checkpoint" loading="lazy"></a>
+<a href="figures/olmo3-sft-word-fraction__compositional-gerund-lower.png"><img src="figures/olmo3-sft-word-fraction__compositional-gerund-lower.png" width="1599" height="1090" alt="Clean validation accuracy over fine-tuning steps for compositional:gerund_lower, one line per checkpoint" loading="lazy"></a>
 <figcaption>Accuracy on clean validation data while fine-tuning. One line per pretraining checkpoint, averaged over seeds; the dotted line marks each checkpoint before fine-tuning. <a href="figures/olmo3-sft-word-fraction__compositional-gerund-lower.pdf">PDF</a></figcaption>
 </figure>
 </section>
@@ -131,7 +131,7 @@ EXCLAIM -&gt;</pre></dd>
 <section class="panel" role="tabpanel" id="panel-olmo3-sft-program-fraction" aria-labelledby="tab-olmo3-sft-program-fraction">
 <h2>Supervised fine-tuning on running a short program</h2>
 <p>The model reads a short loop that adds up a list of numbers and has to write what it prints. A wrong label is what the program would print after one small change, such as leaving out the last number.</p>
-<p class="facts">Supervised fine-tuning of Olmo-3-1025-7B on 1024 training examples, learning rate 2e-06. Wrong-label fractions: 0.0, 0.25, 0.5, 0.75, 1.0. 9 checkpoints, up to 3 seeds each.</p>
+<p class="facts">Supervised fine-tuning of Olmo-3-1025-7B on 1024 training examples, learning rate 2e-06. Wrong-label fractions: 0.0, 0.25, 0.5, 0.75, 1.0. 27 checkpoints, up to 3 seeds each.</p>
 <section class="task">
 <h3>program_execution_easy</h3>
 <div class="example">
@@ -211,7 +211,7 @@ Answer:</pre></dd>
 <p class="note">Clean validation accuracy (greedy first line = reference) is measured on examples like this one.</p>
 </div>
 <figure>
-<a href="figures/olmo3-sft-program-fraction__program-execution-easy.png"><img src="figures/olmo3-sft-program-fraction__program-execution-easy.png" width="1599" height="1002" alt="Clean validation accuracy over fine-tuning steps for program_execution_easy, one line per checkpoint" loading="lazy"></a>
+<a href="figures/olmo3-sft-program-fraction__program-execution-easy.png"><img src="figures/olmo3-sft-program-fraction__program-execution-easy.png" width="1599" height="1090" alt="Clean validation accuracy over fine-tuning steps for program_execution_easy, one line per checkpoint" loading="lazy"></a>
 <figcaption>Accuracy on clean validation data while fine-tuning. One line per pretraining checkpoint, averaged over seeds; the dotted line marks each checkpoint before fine-tuning. <a href="figures/olmo3-sft-program-fraction__program-execution-easy.pdf">PDF</a></figcaption>
 </figure>
 </section>
@@ -317,14 +317,38 @@ Answer:</pre></dd>
 A conversation between User and Assistant. The user asks a question, and the Assistant solves it. The assistant first thinks about the reasoning process in the mind and then provides the user with the answer. The reasoning process and answer are enclosed within &lt;think&gt; &lt;/think&gt; and &lt;answer&gt; &lt;/answer&gt; tags, respectively, i.e., &lt;think&gt; reasoning process here &lt;/think&gt; &lt;answer&gt; answer here &lt;/answer&gt;.
 
 &lt;|user|&gt;
-Tetrahedron $A B C D$ has side lengths $A B=6, B D=6 \sqrt{2}, B C=10, A C=8, C D=10$, and $A D=6$. The distance from vertex $A$ to face $B C D$ can be written as $\frac{a \sqrt{b}}{c}$, where $a, b, c$ are positive integers, $b$ is square-free, and $\operatorname{gcd}(a, c)=1$. Find $100 a+10 b+c$.
+If $x \geq 0$, then $\sqrt{x\sqrt{x\sqrt{x}}} =$
 &lt;|assistant|&gt;
 &lt;think&gt;</pre></dd>
 </div>
 <div class="row target">
 <dt>Target</dt>
 <dd><pre>
- First, we see that faces $A B D, A B C$, and $A C D$ are all right triangles. Now, $A B D$ can be visualized as the base, and it can be seen that side $A C$ is then the height of the tetrahedron, as $A C$ should be perpendicular to both $A B$ and $A D$. Therefore, the area of the base is $\frac{6^{2}}{2}=18$ and the volume of the tetrahedron is $\frac{18 \cdot 8}{3}=48$. Now, let the height to $B C D$ be $h$. The area of triangle $B C D$ comes out to $\frac{1}{2} \cdot 6 \sqrt{2} \cdot \sqrt{82}=6 \sqrt{41}$. This means that the volume is $$48=\frac{6 h \sqrt{41}}{3}=2 h \sqrt{41} \Longrightarrow h=\frac{24}{\sqrt{41}}=\frac{24 \sqrt{41}}{41}$$ &lt;/think&gt; &lt;answer&gt; \boxed{2851} &lt;/answer&gt;</pre></dd>
+ 1. **Understanding the expression**: We start with the expression $\sqrt{x\sqrt{x\sqrt{x}}}$. This involves nested square roots, which can be simplified using the property that $\sqrt{y} = y^{\frac{1}{2}}$ for all $y \geq 0$.
+
+2. **Simplifying the innermost square root**: Begin by simplifying the innermost square root:
+   \[
+   \sqrt{x} = x^{\frac{1}{2}}.
+   \]
+
+3. **Substituting and simplifying the next level**: Substitute $x^{\frac{1}{2}}$ back into the expression:
+   \[
+   \sqrt{x\sqrt{x}} = \sqrt{x \cdot x^{\frac{1}{2}}} = \sqrt{x^{1 + \frac{1}{2}}} = \sqrt{x^{\frac{3}{2}}}.
+   \]
+
+4. **Simplifying the outermost expression**: Now substitute $\sqrt{x^{\frac{3}{2}}}$ back into the original expression:
+   \[
+   \sqrt{x\sqrt{x\sqrt{x}}} = \sqrt{x \cdot x^{\frac{3}{2}}} = \sqrt{x^{1 + \frac{3}{2}}} = \sqrt{x^{\frac{7}{4}}}.
+   \]
+
+5. **Final simplification**: Simplify the square root of $x^{\frac{7}{4}}$:
+   \[
+   \sqrt{x^{\frac{7}{4}}} = \left(x^{\frac{7}{4}}\right)^{\frac{1}{2}} = x^{\frac{7}{4} \cdot \frac{1}{2}} = x^{\frac{7}{8}}.
+   \]
+
+6. **Expressing the result**: The expression $x^{\frac{7}{8}}$ can be rewritten using radical notation as $\sqrt[8]{x^7}$.
+
+Thus, the final answer is $\boxed{\textbf{(E) } \sqrt[8]{x^7}}$. $\blacksquare$ &lt;/think&gt; &lt;answer&gt; \boxed{$\sqrt[8]{x^7}$} &lt;/answer&gt;</pre></dd>
 </div>
 </dl>
 <p class="note">The model reads the grey text and is trained to write the coloured text. The label is the true answer.</p>
@@ -360,7 +384,7 @@ Find the maximum value of
 <section class="panel" role="tabpanel" id="panel-olmo3-rlvr-math" aria-labelledby="tab-olmo3-rlvr-math">
 <h2>Reinforcement learning on MATH with a verifiable reward</h2>
 <p>The model writes its own reasoning and answer and is rewarded when the answer equals the label. The training problems are ones where the checkpoint's most frequent answer over 64 attempts is wrong. With correct labels the reward goes to the true answer, with incorrect labels to that most frequent answer.</p>
-<p class="facts">RLVR of Olmo-3-1025-7B on 800 training examples, learning rate 1e-06. Wrong-label fractions: 0.0, 1.0. 11 checkpoints, up to 3 seeds each.</p>
+<p class="facts">RLVR of Olmo-3-1025-7B on 800 training examples, learning rate 1e-06. Wrong-label fractions: 0.0, 1.0. 20 checkpoints, up to 3 seeds each.</p>
 <section class="task">
 <h3>paper_math_r1</h3>
 <div class="example">
@@ -434,7 +458,7 @@ Find the maximum value of
 <p class="note">Clean validation accuracy (generated answer, paper grader) is measured on examples like this one.</p>
 </div>
 <figure>
-<a href="figures/olmo3-rlvr-math__paper-math-r1.png"><img src="figures/olmo3-rlvr-math__paper-math-r1.png" width="1079" height="612" alt="Clean validation accuracy over fine-tuning steps for paper_math_r1, one line per checkpoint" loading="lazy"></a>
+<a href="figures/olmo3-rlvr-math__paper-math-r1.png"><img src="figures/olmo3-rlvr-math__paper-math-r1.png" width="1079" height="656" alt="Clean validation accuracy over fine-tuning steps for paper_math_r1, one line per checkpoint" loading="lazy"></a>
 <figcaption>Accuracy on clean validation data while fine-tuning. One line per pretraining checkpoint, averaged over seeds; the dotted line marks each checkpoint before fine-tuning. <a href="figures/olmo3-rlvr-math__paper-math-r1.pdf">PDF</a></figcaption>
 </figure>
 </section>
@@ -537,7 +561,7 @@ The word &quot;izier&quot; is a variant of the word &quot;vizier&quot; which mea
 <p class="note">The model reads the grey text and is trained to write the coloured text. The true answer is vizier.</p>
 </div>
 <figure>
-<a href="figures/olmo3-context-comparison__compositional-copy-lower.png"><img src="figures/olmo3-context-comparison__compositional-copy-lower.png" width="1907" height="810" alt="Clean and observed accuracy over fine-tuning steps for compositional:copy_lower, one column per training setup" loading="lazy"></a>
+<a href="figures/olmo3-context-comparison__compositional-copy-lower.png"><img src="figures/olmo3-context-comparison__compositional-copy-lower.png" width="1907" height="898" alt="Clean and observed accuracy over fine-tuning steps for compositional:copy_lower, one column per training setup" loading="lazy"></a>
 <figcaption>One column per training setup. Top row: accuracy on clean validation data. Bottom row: accuracy on held-out inputs with wrong labels. One line per pretraining checkpoint, averaged over seeds. <a href="figures/olmo3-context-comparison__compositional-copy-lower.pdf">PDF</a></figcaption>
 </figure>
 </section>
@@ -634,7 +658,7 @@ The word &quot;clam&quot; is a noun. A noun is a type of word the meaning of whi
 <p class="note">The model reads the grey text and is trained to write the coloured text. The true answer is brushing.</p>
 </div>
 <figure>
-<a href="figures/olmo3-context-comparison__compositional-gerund-lower.png"><img src="figures/olmo3-context-comparison__compositional-gerund-lower.png" width="1907" height="810" alt="Clean and observed accuracy over fine-tuning steps for compositional:gerund_lower, one column per training setup" loading="lazy"></a>
+<a href="figures/olmo3-context-comparison__compositional-gerund-lower.png"><img src="figures/olmo3-context-comparison__compositional-gerund-lower.png" width="1907" height="898" alt="Clean and observed accuracy over fine-tuning steps for compositional:gerund_lower, one column per training setup" loading="lazy"></a>
 <figcaption>One column per training setup. Top row: accuracy on clean validation data. Bottom row: accuracy on held-out inputs with wrong labels. One line per pretraining checkpoint, averaged over seeds. <a href="figures/olmo3-context-comparison__compositional-gerund-lower.pdf">PDF</a></figcaption>
 </figure>
 </section>
@@ -954,7 +978,7 @@ EXCLAIM -&gt;</pre></dd>
 <section class="panel" role="tabpanel" id="panel-olmo2-rlvr-gsm" aria-labelledby="tab-olmo2-rlvr-gsm">
 <h2>Reinforcement learning on GSM8K with a verifiable reward</h2>
 <p>The model writes its own reasoning and answer and is rewarded when the answer equals the label. The training problems are ones where the checkpoint's most frequent answer over 64 attempts is wrong. With correct labels the reward goes to the true answer, with incorrect labels to that most frequent answer.</p>
-<p class="facts">RLVR of OLMo-2-1124-7B on 800 training examples, learning rate 1e-06. Wrong-label fractions: 0.0, 1.0. 4 checkpoints, up to 3 seeds each.</p>
+<p class="facts">RLVR of OLMo-2-1124-7B on 800 training examples, learning rate 1e-06. Wrong-label fractions: 0.0, 1.0. 7 checkpoints, up to 3 seeds each.</p>
 <section class="task">
 <h3>paper_gsm8k_r1</h3>
 <div class="example">
@@ -1000,14 +1024,14 @@ Carl has four times as many marbles as Sean and Sean has half as many marbles as
 <p class="note">Clean validation accuracy (generated answer, paper grader) is measured on examples like this one.</p>
 </div>
 <figure>
-<a href="figures/olmo2-rlvr-gsm__paper-gsm8k-r1.png"><img src="figures/olmo2-rlvr-gsm__paper-gsm8k-r1.png" width="1079" height="568" alt="Clean validation accuracy over fine-tuning steps for paper_gsm8k_r1, one line per checkpoint" loading="lazy"></a>
+<a href="figures/olmo2-rlvr-gsm__paper-gsm8k-r1.png"><img src="figures/olmo2-rlvr-gsm__paper-gsm8k-r1.png" width="1079" height="590" alt="Clean validation accuracy over fine-tuning steps for paper_gsm8k_r1, one line per checkpoint" loading="lazy"></a>
 <figcaption>Accuracy on clean validation data while fine-tuning. One line per pretraining checkpoint, averaged over seeds; the dotted line marks each checkpoint before fine-tuning. <a href="figures/olmo2-rlvr-gsm__paper-gsm8k-r1.pdf">PDF</a></figcaption>
 </figure>
 </section>
 </section>
 </main>
 <footer class="site">
-<p>Built on 2026-11-17 from 580 runs by <code>plotting/build_website.py</code>.</p>
+<p>Built on 2026-11-20 from 1184 runs by <code>plotting/build_website.py</code>.</p>
 </footer>
 <script src="tabs.js"></script>
 </body>
